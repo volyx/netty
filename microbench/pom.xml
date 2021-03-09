@@ -270,6 +270,36 @@
           </execution>
         </executions>
       </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>3.0.0</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>java</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <includeProjectDependencies>false</includeProjectDependencies>
+          <includePluginDependencies>true</includePluginDependencies>
+          <mainClass>io.netty.jmh.JmhReportTask</mainClass>
+          <arguments>
+            <argument>${project.build.directory}/reports/performance/</argument>
+            <argument>${project.build.directory}/reports</argument>
+          </arguments>
+        </configuration>
+        <dependencies>
+          <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-microbench-report</artifactId>
+            <version>5.0.0.Final-SNAPSHOT</version>
+            <type>jar</type>
+          </dependency>
+        </dependencies>
+      </plugin>
     </plugins>
   </build>
 </project>

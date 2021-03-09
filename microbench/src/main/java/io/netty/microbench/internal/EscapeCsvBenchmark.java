@@ -22,6 +22,8 @@ import org.openjdk.jmh.annotations.OutputTimeUnit;
 import org.openjdk.jmh.annotations.Param;
 import org.openjdk.jmh.annotations.Threads;
 import org.openjdk.jmh.annotations.Warmup;
+import org.openjdk.jmh.profile.GCProfiler;
+import org.openjdk.jmh.profile.InternalProfiler;
 import org.openjdk.jmh.runner.options.ChainedOptionsBuilder;
 
 import java.util.concurrent.TimeUnit;
@@ -157,4 +159,8 @@ public class EscapeCsvBenchmark extends AbstractMicrobenchmark {
         return escapeCsv(value, true);
     }
 
+    @Override
+    protected Class<? extends InternalProfiler> getProfiler() {
+        return GCProfiler.class;
+    }
 }

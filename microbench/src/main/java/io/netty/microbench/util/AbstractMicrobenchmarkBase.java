@@ -28,6 +28,7 @@ import org.openjdk.jmh.annotations.Measurement;
 import org.openjdk.jmh.annotations.Scope;
 import org.openjdk.jmh.annotations.State;
 import org.openjdk.jmh.annotations.Warmup;
+import org.openjdk.jmh.profile.InternalProfiler;
 import org.openjdk.jmh.results.format.ResultFormatType;
 import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.options.ChainedOptionsBuilder;
@@ -65,6 +66,10 @@ public abstract class AbstractMicrobenchmarkBase {
             runnerOptions.measurementIterations(getMeasureIterations());
         }
 
+        if (getProfiler() != null) {
+            runnerOptions.addProfiler(getProfiler());
+        }
+
         if (getReportDir() != null) {
             String filePath = getReportDir() + className + ".json";
             File file = new File(filePath);
@@ -95,6 +100,10 @@ public abstract class AbstractMicrobenchmarkBase {
             jvmArgs = customArgs.toArray(new String[0]);
         }
         return jvmArgs;
+    }
+
+    protected Class<? extends InternalProfiler> getProfiler() {
+        return null;
     }
 
     @Test
